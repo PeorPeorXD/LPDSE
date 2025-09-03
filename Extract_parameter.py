@@ -4,7 +4,7 @@ from traceback import print_tb
 
 from charm.toolbox.pairinggroup import PairingGroup
 
-filename = '/home/yanhaolong/PycharmProjects/PythonProject/Our/crypto_params.pkl'
+filename = 'crypto_params.pkl'
 with open(filename, 'rb') as f:
     loaded_params = pickle.load(f)
 
