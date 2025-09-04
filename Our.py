@@ -211,17 +211,9 @@ def Decryption(res, sk_DU) :
 if __name__ == '__main__':
     sk_DU,pk_DU = KeyGen()
     sk_DO,pk_DO = KeyGen()
-    # CS.delete_table(TABLE_NAME)
-    # CS.close()
-    # IN = [[b'qqweqwasda',b'1',b'add'],
-    #       [b'asdqwegdwewe',b'3',b'add'],
-    #       [b'asdaqweqwe',b'2',b'del'],
-    #       [b'asdasdagffgwe',b'1',b'del'],
-    #       [b'asdioium.ccv',b'1',b'add'],
-    #       [b'asdqwem,lsjl',b'2',b'add']]
 
 # Update time test
-    reader = csv.reader(open('/home/yanhaolong/PycharmProjects/PythonProject/IN_w_70123.csv'))
+    reader = csv.reader(open('chose your dataset path'))
     IN = []
     for row in reader :
         IN.append([row[0].encode('utf-8'),row[1].encode('utf-8'),row[2].encode('utf-8')])
@@ -234,11 +226,11 @@ if __name__ == '__main__':
     # Update_in_CS(EDB, v_c)
     end_time = time.time()
     print('Update time cost:', end_time-start_time)
-    print(f'{get_EDB_size(EDB)}MB')
+    print(f'Ciphertext size{get_EDB_size(EDB)}MB')
 
 
 # Search time test
-#     reader = csv.reader(open('/home/yanhaolong/PycharmProjects/PythonProject/IN_IOT_10000.csv'))
+#     reader = csv.reader(open('chose your dataset path'))
 #     IN = []
 #     for row in reader :
 #         IN.append([row[0].encode('utf-8'),row[1].encode('utf-8'),row[2].encode('utf-8')])
@@ -272,14 +264,3 @@ if __name__ == '__main__':
 
     CS.delete_table(TABLE_NAME)
     CS.close()
-
-
-# IN_w_70123.csv,keywords 2654,keyword/index 70123,Internet of Things
-#
-# keywords_500.csv,keywords 500,keyword/index 10377,  Security
-#
-# keywords_1000.csv,keywords 1000,keyword/index 23241,  Servers
-#
-# keywords_1500.csv,keywords 1500,keyword/index 43592,  Internet of Things
-#
-# keywords_2000.csv,keywords 2000,keyword/index 56080, Internet of Things
