@@ -177,7 +177,7 @@ def Trapdoor(v_c,sk_DU,pk_DO,w) :
     t_w = F_2(key_bytes, w)
     return st_vl,t_w
 
-def Search_in_CS(st_vl,t_w) :
+def Search_in_CS(st_vl,t_w,CS,TABLE_NAME) :
     res = []
     L_st_vl = H_1(st_vl)
     E_st_vl = CS.query_by_col1(TABLE_NAME, L_st_vl)
