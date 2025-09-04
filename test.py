@@ -81,10 +81,6 @@ def state_generation_test():
 if __name__ == "__main__":
     sk_DU, pk_DU = Our.KeyGen()
     sk_DO, pk_DO = Our.KeyGen()
-    CS = DatabaseServer()
-    TABLE_NAME = 'Test'
-    CS.delete_table('Test')
-    CS.close()
     update_test(pk_DU,sk_DO,pk_DO)
     search_test(sk_DU,pk_DU,sk_DO,pk_DO)
     state_generation_test()
