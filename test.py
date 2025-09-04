@@ -56,7 +56,7 @@ def search_test(sk_DU,pk_DU,sk_DO,pk_DO) :
     #end_time_TD = time.time()
     #print((end_time_TD-start_time_TD)*1000) #ms
     start_time = time.time()
-    res = Our.Search_in_CS(st_vl,t_w)
+    res = Our.Search_in_CS(st_vl,t_w,CS,TABLE_NAME)
     end_time = time.time()
     print('Our search time cost:', end_time - start_time)
     CS.delete_table('Test')
