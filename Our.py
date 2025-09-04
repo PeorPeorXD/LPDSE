@@ -13,7 +13,6 @@ from server import DatabaseServer
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-
 CS = DatabaseServer()
 TABLE_NAME = 'Test'
 
