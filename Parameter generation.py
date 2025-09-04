@@ -2,9 +2,7 @@ import os
 import pickle
 from charm.toolbox.pairinggroup import PairingGroup, G1, ZR
 
-
 def generate_and_save():
-
     group_name = 'SS512'
     group = PairingGroup(group_name)
 
