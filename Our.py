@@ -11,10 +11,9 @@ import sys
 import Extract_parameter as ep
 from server import DatabaseServer
 
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
-CS = DatabaseServer()
-TABLE_NAME = 'Test'
+# CS = DatabaseServer()
+# TABLE_NAME = 'Test'
 
 lambda_val = 256
 group = ep.group
@@ -125,12 +124,17 @@ def get_EDB_size(EDB) :
         s += len(row[1])
     return s/(1024 ** 2)
 
+def get_res_size(res) :
+    s = 0
+    for row in res :
+        s += len(row)
+    return s/(1024 ** 2)
 def KeyGen() :
     sk = group.random(ZR)
     pk = sk * P
     return sk,pk
 
-def Update_in_DO(pk_DU,sk_DO,v_p,W,Ind) :
+def Update_in_DO(pk_DU,sk_DO,pk_DO,v_p,W,Ind) :
     EDB = []
     if v_p is None:
         v_p = U
@@ -162,7 +166,7 @@ def Update_in_DO(pk_DU,sk_DO,v_p,W,Ind) :
             j=j+1
     return EDB,v_c, v_p
 
-def Update_in_CS(EDB,v_c) :
+def Update_in_CS(EDB,v_c,CS,TABLE_NAME) :
     CS.create_table(TABLE_NAME)
     CS.batch_insert(TABLE_NAME,EDB)
 
@@ -191,6 +195,7 @@ def Search_in_CS(st_vl,t_w) :
         st_vl_p = E_st_vl.__xor__(H_3(st_vl))
         L_st_vl = H_1(st_vl_p)
         E_st_vl = CS.query_by_col1(TABLE_NAME, L_st_vl)
+
     return res
 
 def Decryption(res, sk_DU) :
@@ -206,30 +211,19 @@ def Decryption(res, sk_DU) :
         ind_add.discard(ind)
     return ind_add
 
-
+'''
 if __name__ == '__main__':
     sk_DU,pk_DU = KeyGen()
     sk_DO,pk_DO = KeyGen()
+    # IN = [[b'qqweqwasda',b'1',b'add'],
+    #       [b'asdqwegdwewe',b'3',b'add'],
+    #       [b'asdaqweqwe',b'2',b'del'],
+    #       [b'asdasdagffgwe',b'1',b'del'],
+    #       [b'asdioium.ccv',b'1',b'add'],
+    #       [b'asdqwem,lsjl',b'2',b'add']]
 
 # Update time test
-    reader = csv.reader(open('chose your dataset path'))
-    IN = []
-    for row in reader :
-        IN.append([row[0].encode('utf-8'),row[1].encode('utf-8'),row[2].encode('utf-8')])
-    W = get_keywords(IN)
-    Ind = {}
-    for w in W :
-        Ind[w] = get_indexes(IN,w)
-    start_time = time.time()
-    EDB,v_c, v_p = Update_in_DO(pk_DU,sk_DO,U,W,Ind)
-    # Update_in_CS(EDB, v_c)
-    end_time = time.time()
-    print('Update time cost:', end_time-start_time)
-    print(f'Ciphertext size{get_EDB_size(EDB)}MB')
-
-
-# Search time test
-#     reader = csv.reader(open('chose your dataset path'))
+#     reader = csv.reader(open('/home/yanhaolong/PycharmProjects/PythonProject/keywords_500_extended30000.csv'))
 #     IN = []
 #     for row in reader :
 #         IN.append([row[0].encode('utf-8'),row[1].encode('utf-8'),row[2].encode('utf-8')])
@@ -237,17 +231,34 @@ if __name__ == '__main__':
 #     Ind = {}
 #     for w in W :
 #         Ind[w] = get_indexes(IN,w)
-#     EDB, v_c, v_p = Update_in_DO(pk_DU, sk_DO, U, W,Ind)
-#     Update_in_CS(EDB, v_c)
+#     start_time = time.time()
+#     EDB,v_c, v_p = Update_in_DO(pk_DU,sk_DO,pk_DO,U,W,Ind)
+#     # Update_in_CS(EDB, v_c)
+#     end_time = time.time()
+#     print('Update time cost:', end_time-start_time)
+#     print(f'{get_EDB_size(EDB)}MB')
+
+
+# Search time test
+#     reader = csv.reader(open('/home/yanhaolong/PycharmProjects/PythonProject/IN_IOT_500.csv'))
+#     IN = []
+#     for row in reader :
+#         IN.append([row[0].encode('utf-8'),row[1].encode('utf-8'),row[2].encode('utf-8')])
+#     W = get_keywords(IN)
+#     Ind = {}
+#     for w in W :
+#         Ind[w] = get_indexes(IN,w)
+#     EDB, v_c, v_p = Update_in_DO(pk_DU, sk_DO, pk_DO,U, W,Ind)
+#     Update_in_CS(EDB, v_c,CS, TABLE_NAME)
 #     start_time_TD = time.time()
 #     st_vl, t_w = Trapdoor(v_c,sk_DU,pk_DO,b'Internet of Things')
 #     end_time_TD = time.time()
 #     print((end_time_TD-start_time_TD)*1000) #ms
 #     start_time = time.time()
 #     res = Search_in_CS(st_vl,t_w)
+# 
 #     end_time = time.time()
 #     print('Our search time cost:', end_time - start_time)
-#     print('res size:', get_EDB_size(res))
 
     # start_time = time.time()
     # r = group.random(ZR)
@@ -263,3 +274,15 @@ if __name__ == '__main__':
 
     CS.delete_table(TABLE_NAME)
     CS.close()
+
+
+# IN_w_70123.csv,keywords 2654,keyword/index 70123,Internet of Things
+#
+# keywords_500.csv,keywords 500,keyword/index 10377,  Security
+#
+# keywords_1000.csv,keywords 1000,keyword/index 23241,  Servers
+#
+# keywords_1500.csv,keywords 1500,keyword/index 43592,  Internet of Things
+#
+# keywords_2000.csv,keywords 2000,keyword/index 56080, Internet of Things
+'''
