@@ -20,7 +20,7 @@ def update_test(pk_DU,sk_DO,pk_DO) :
     CS = DatabaseServer()
     TABLE_NAME = 'Test'
     print('Start update test')
-    reader = csv.reader(open('/home/yanhaolong/PycharmProjects/PythonProject/keywords_500_extended30000.csv'))
+    reader = csv.reader(open('your path'))
     IN = []
     for row in reader :
         IN.append([row[0].encode('utf-8'),row[1].encode('utf-8'),row[2].encode('utf-8')])
@@ -41,7 +41,7 @@ def search_test(sk_DU,pk_DU,sk_DO,pk_DO) :
     CS = DatabaseServer()
     TABLE_NAME = 'Test'
     print('Start search test')
-    reader = csv.reader(open('/home/yanhaolong/PycharmProjects/PythonProject/IN_IOT_10000.csv'))
+    reader = csv.reader(open('your path'))
     IN = []
     for row in reader :
         IN.append([row[0].encode('utf-8'),row[1].encode('utf-8'),row[2].encode('utf-8')])
