@@ -1,6 +1,5 @@
 import pickle
 from traceback import print_tb
-
 from charm.toolbox.pairinggroup import PairingGroup
 
 filename = 'crypto_params.pkl'
