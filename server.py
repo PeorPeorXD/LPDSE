@@ -5,7 +5,7 @@ from typing import List, Tuple
 
 # host_name='localhost'
 # user_name='debian-sys-maint'
-# user_password='5C1YHtV9Owb0dejD'
+# user_password='your password'
 # database='information_schema'
 # port=3306
 # charset='utf8'
