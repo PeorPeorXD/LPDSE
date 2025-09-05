@@ -11,7 +11,6 @@ import sys
 import Extract_parameter as ep
 from server import DatabaseServer
 
-
 # CS = DatabaseServer()
 # TABLE_NAME = 'Test'
 
