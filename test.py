@@ -15,7 +15,6 @@ import sys
 import Extract_parameter as ep
 from server import DatabaseServer
 
-
 def update_test(pk_DU,sk_DO,pk_DO) :
     CS = DatabaseServer()
     TABLE_NAME = 'Test'
